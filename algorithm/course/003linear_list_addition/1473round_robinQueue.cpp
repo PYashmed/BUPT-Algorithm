@@ -16,7 +16,6 @@ private:
 public:
     rrqueue();
     rrqueue(int, int[]);
-    ~rrqueue();
     void insert(int);
     void head();
     void pop(int);
@@ -27,32 +26,6 @@ rrqueue::rrqueue()
 {
     tail = new node;
     tail->next = tail;
-    cout << "1";
-}
-rrqueue::rrqueue(int a, int b[])
-{
-    int i = 0;
-    while (a)
-    {
-        a--;
-        node *t = new node;
-        t->data = b[i];
-        t->next = tail->next;
-        tail->next = t;
-        i++;
-    }
-}
-
-rrqueue::~rrqueue()
-{
-    node *t = tail->next;
-    node *tr = tail->next;
-    while (t != tail)
-    {
-        t = t->next;
-        delete tr;
-        tr = t;
-    }
 }
 
 void rrqueue::insert(int a)
@@ -65,7 +38,7 @@ void rrqueue::insert(int a)
 
 void rrqueue::getlength()
 {
-    node *t = tail->next;
+    node *t = tail;
     int i = 0;
     while (t->next != tail)
     {
@@ -99,17 +72,18 @@ void rrqueue::pop(int a)
 
 int main()
 {
+    rrqueue list;
     int a;
     cin >> a;
     int i = 0;
-    int b[10000];
-    while (a)
+    int b[100];
+    int j = a;
+    while (j)
     {
         cin >> b[i];
         i++;
-        a--;
+        j--;
     }
-    rrqueue list;
     for (int k = a - 1; k >= 0; k--)
     {
         list.insert(b[k]);
