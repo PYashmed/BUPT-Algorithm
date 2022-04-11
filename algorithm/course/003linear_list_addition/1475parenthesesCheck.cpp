@@ -1,47 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
-struct node
-{
-    int a;
-    node *next;
-};
-
-class stacklist
-{
-public:
-    stacklist();
-    void empty();
-    void put();
-    void pop();
-    node *first;
-    node *top;
-};
-stacklist::stacklist()
-{
-    first = new node;
-    first->a = -1;
-    first->next = NULL;
-    top = first;
-}
-
-void stacklist::put()
-{
-    node *t = new node;
-    t->a = 0;
-    t->next = NULL;
-    top->next = t;
-    top = t;
-}
-
-void stacklist::pop()
-{
-    
-}
 void check(string a)
 {
+    int top = 0;
     int n = a.length();
     while (n)
     {
         n--;
+        if (a[n] == ')')
+        {
+            top++;
+        }
+        if (a[n] == '(')
+        {
+            top--;
+        }
+        if (top < 0)
+        {
+            cout << "Error";
+            break;
+        }
     }
+    if (n == 0 && top ==0)
+    {
+        cout << "OK";
+    }
+}
+
+int main()
+{
+    string a;
+    getline(cin, a);
+    check(a);
+    return 0;
 }
