@@ -13,18 +13,14 @@ node *creat(const char *in, const char *pre, int l1, int h1, int l2, int h2)
     int llen = 0, rlen = 0, i = 0;
     node *root = new node;
     root->data = *(pre + l2);
-    for (int k = l1; k <= h1; k++)
-    {
-        if (in[k] == root->data)
-        {
-            break;
-        }
-        throw 1;
-    }
-    for (i = l1; *(in + i) != root->data; i++)
+    for (i = l1; *(in + i) != root->data && i < h1 + 2; i++)
         ;
     llen = i - l1;
     rlen = h1 - i;
+    if (rlen < 0)
+    {
+        throw 1;
+    }
     if (llen)
     {
         root->lcd = creat(in, pre, l1, l1 + llen - 1, l2 + 1, l2 + llen);
@@ -86,17 +82,23 @@ int main()
     cin >> in1;
     const char *pre = pre1.c_str();
     const char *in = in1.c_str();
-    try
-    {
-        node *root = creat(in, pre, 0, (strlen(in) - 1), 0, (strlen(pre) - 1));
-        postorder(root);
-        cout << endl;
-        Layerorder(root);
-    }
-    catch (int e)
+    if (strlen(pre) != strlen(in))
     {
         cout << "error";
     }
-
+    else
+    {
+        try
+        {
+            node *root = creat(in, pre, 0, (strlen(in) - 1), 0, (strlen(pre) - 1));
+            postorder(root);
+            cout << endl;
+            Layerorder(root);
+        }
+        catch (int e)
+        {
+            cout << "error";
+        }
+    }
     return 0;
 }
